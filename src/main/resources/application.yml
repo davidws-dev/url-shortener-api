@@ -1,15 +1,15 @@
 spring:
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5433/urlshortener
-    username: urlshortener_user
-    password: postgres
+    url: ${DATABASE_URL}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
   sql:
     init:
       mode: never
@@ -20,5 +20,8 @@ spring:
   mvc:
     static-path-pattern: /**
 
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+
 server:
-  port: 8080
+  port: ${PORT:8080}
