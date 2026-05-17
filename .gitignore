@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Configuração local com credenciais
+src/main/resources/application-local.yml
+.env
+*.env

@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5433/urlshortener
+    username: urlshortener_user
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: never
+  web:
+    resources:
+      static-locations: classpath:/static/
+      add-mappings: true
+  mvc:
+    static-path-pattern: /**
+
+server:
+  port: 8080
