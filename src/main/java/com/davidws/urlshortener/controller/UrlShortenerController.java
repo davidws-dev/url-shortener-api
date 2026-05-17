@@ -8,6 +8,7 @@ import com.davidws.urlshortener.exception.UrlNotFoundException;
 import com.davidws.urlshortener.service.UrlShortenerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,15 @@ public class UrlShortenerController {
     @Autowired
     private UrlShortenerService urlShortenerService;
 
+    @Value("${app.base-url:http://localhost:8080}")
+    private String baseUrl;
+
     @PostMapping("/shorten")
     public ResponseEntity<ShortenResponse> shortenUrl(@Valid @RequestBody ShortenRequest request) {
         UrlEntity entity = urlShortenerService.shortenUrl(
                 request.getOriginalUrl(), request.getExpiresAt()
         );
-        String shortUrl = "http://localhost:8080/" + entity.getShortCode();
+        String shortUrl = baseUrl + "/" + entity.getShortCode();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ShortenResponse(entity.getShortCode(), shortUrl));
     }
